@@ -36,7 +36,8 @@ defmodule SimpleWeather.MixProject do
       {:phoenix_pubsub, "~> 1.1"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:darkskyx, "~> 1.0"}
+      {:darkskyx, "~> 1.0"},
+      {:mox, "~> 0.5.2", only: :test}
     ]
   end
 end

@@ -15,6 +15,9 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
   pubsub: [name: SimpleWeather.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "9rGIXRLp"]
 
+config :simple_weather,
+  darkskyx_adapter: SimpleWeather.DarkSkyxAdapter
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

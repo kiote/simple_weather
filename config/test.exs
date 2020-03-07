@@ -6,5 +6,8 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :simple_weather,
+  darkskyx_adapter: SimpleWeather.DarkSkyxAdapterMock
+
 # Print only warnings and errors during test
 config :logger, level: :warn

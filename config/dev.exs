@@ -11,6 +11,7 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  darkskyx_adapter: SimpleWeather.DarkSkyxAdapter,
   watchers: []
 
 # ## SSL Support
