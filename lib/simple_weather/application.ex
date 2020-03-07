@@ -5,11 +5,14 @@ defmodule SimpleWeather.Application do
 
   use Application
 
+  alias SimpleWeather.Utils.CommonCache
+
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      SimpleWeatherWeb.Endpoint
+      SimpleWeatherWeb.Endpoint,
+      CommonCache
       # Starts a worker by calling: SimpleWeather.Worker.start_link(arg)
       # {SimpleWeather.Worker, arg},
     ]

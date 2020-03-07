@@ -7,10 +7,20 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
 
   alias SimpleWeather.AdaptersFactory
 
-  test "invokes" do
-    SimpleWeather.DarkSkyxAdapterMock
-    |> expect(:today, fn -> %{} end)
+  describe "today/0" do
+    test "invokes" do
+      SimpleWeather.DarkSkyxAdapterMock
+      |> expect(:today, fn -> %{} end)
 
-    AdaptersFactory.darkskyx().today() |> IO.inspect()
+      assert AdaptersFactory.darkskyx().today()
+    end
+
+    test "caches the result" do
+      SimpleWeather.DarkSkyxAdapterMock
+      |> expect(:today, fn -> %{} end)
+
+      AdaptersFactory.darkskyx().today()
+      AdaptersFactory.darkskyx().today()
+    end
   end
 end
