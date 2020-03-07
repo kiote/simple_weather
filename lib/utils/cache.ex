@@ -13,6 +13,7 @@ defmodule SimpleWeather.Utils.CommonCache do
       :undefined -> :ets.new(@table_name, [:set, :public, :named_table, read_concurrency: true])
       _ -> :ok
     end
+
     {:ok, []}
   end
 
