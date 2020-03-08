@@ -2,6 +2,10 @@
 
 [![codecov](https://codecov.io/gh/kiote/simple_weather/branch/master/graph/badge.svg)](https://codecov.io/gh/kiote/simple_weather)
 
+Goes to weather provider and gets weather data for today + historical data for last week.
+Suppose to provide data to IoT device with answers "is it safe to go bike riding today" question.
+
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
