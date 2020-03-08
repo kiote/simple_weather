@@ -2,6 +2,8 @@ defmodule SimpleWeather.WeatherReceiver do
   alias SimpleWeather.AdaptersFactory
   alias SimpleWeather.Utils.EtsCache
 
+  @ttl 60 * 10
+
   def weather_adapter do
     AdaptersFactory.darkskyx()
   end
@@ -12,6 +14,15 @@ defmodule SimpleWeather.WeatherReceiver do
   end
 
   defp maybe_get_from_cache(%{lat: lat, long: long}) do
-    EtsCache.get("#{lat}#{long}")
+    key = "#{lat}#{long}"
+    res = EtsCache.get(key)
+
+    if res == nil do
+      res = weather_adapter().today()
+      EtsCache.put({key, res, @ttl})
+      res
+    else
+      res
+    end
   end
 end

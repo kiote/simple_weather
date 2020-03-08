@@ -5,10 +5,22 @@ defmodule SimpleWeather.WeatherReceiverTest do
 
   alias SimpleWeather.WeatherReceiver
 
-  test "today" do
-    SimpleWeather.DarkSkyxAdapterMock
-    |> expect(:params_for_today, fn -> %{lat: 1.1, long: 1.1} end)
+  describe "today/0" do
+    test "invokes" do
+      SimpleWeather.DarkSkyxAdapterMock
+      |> expect(:params_for_today, fn -> %{lat: 1.1, long: 1.1} end)
+      |> expect(:today, fn -> %{} end)
 
-    WeatherReceiver.today()
+      assert WeatherReceiver.today() == %{}
+    end
+
+    test "caches results" do
+      SimpleWeather.DarkSkyxAdapterMock
+      |> expect(:params_for_today, 2, fn -> %{lat: 1.1, long: 1.1} end)
+      |> expect(:today, 1, fn -> %{} end)
+
+      assert WeatherReceiver.today() == %{}
+      assert WeatherReceiver.today() == %{}
+    end
   end
 end
