@@ -12,15 +12,7 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
       SimpleWeather.DarkSkyxAdapterMock
       |> expect(:today, fn -> %{} end)
 
-      assert AdaptersFactory.darkskyx().today()
-    end
-
-    test "caches the result" do
-      SimpleWeather.DarkSkyxAdapterMock
-      |> expect(:today, fn -> %{} end)
-
-      AdaptersFactory.darkskyx().today()
-      AdaptersFactory.darkskyx().today()
+      assert AdaptersFactory.darkskyx().today() == %{}
     end
   end
 end
