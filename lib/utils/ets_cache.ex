@@ -6,7 +6,7 @@ defmodule SimpleWeather.Utils.EtsCache do
   @table_name :common_cache
 
   def start_link(args) do
-    GenServer.start_link(__MODULE__, args)
+    GenServer.start_link(__MODULE__, args, name: __MODULE__)
   end
 
   def get(key) do
@@ -34,18 +34,17 @@ defmodule SimpleWeather.Utils.EtsCache do
   end
 
   @impl true
-  def handle_call(:get, _from, key) do
+  def handle_call({:get, key}, _from, _) do
     {:reply,
      case :ets.lookup(@table_name, key) do
-       [{^key, %{value: _, ttl: _} = entry}] -> entry
+       [{^key, %{value: value}}] -> value
        [] -> nil
-       x -> x
-     end}
+     end, :no_state}
   end
 
   @impl true
-  def handle_call(:put, _from, {key, value, ttl}) do
+  def handle_call({:put, {key, value, ttl}}, _from, _) do
     :ets.insert(@table_name, {key, %{value: value, ttl: calculate_ttl(ttl)}})
-    {:reply, value}
+    {:reply, value, :no_state}
   end
 end

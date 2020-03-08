@@ -1,7 +1,13 @@
 defmodule SimpleWeather.AdaptersFactory.UnknownOrEmptyAdapter do
   @behaviour SimpleWeather.AdapterBehaviour
 
+  @impl true
   def today() do
+    raise "You must specify adapter in config"
+  end
+
+  @impl true
+  def params_for_today() do
     raise "You must specify adapter in config"
   end
 end
