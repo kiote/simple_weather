@@ -22,3 +22,13 @@ jobs:
       run: mix deps.get
     - name: Run Tests
       run: mix test
+    - name: Generate Coverage Report
+      run: MIX_ENV=test mix do compile --warnings-as-errors, coveralls.json
+    - name: Upload coverage to Codecov  
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./cover/excoveralls.json
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: true
+

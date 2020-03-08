@@ -9,6 +9,7 @@ defmodule SimpleWeather.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
       deps: deps()
     ]
   end
@@ -37,7 +38,8 @@ defmodule SimpleWeather.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:darkskyx, "~> 1.0"},
-      {:mox, "~> 0.5.2", only: :test}
+      {:mox, "~> 0.5.2", only: :test},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 end
