@@ -1,5 +1,7 @@
 # SimpleWeather
 
+[![codecov](https://codecov.io/gh/kiote/simple_weather/branch/master/graph/badge.svg)](https://codecov.io/gh/kiote/simple_weather)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
