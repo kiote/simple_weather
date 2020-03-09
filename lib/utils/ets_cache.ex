@@ -26,7 +26,8 @@ defmodule SimpleWeather.Utils.EtsCache do
   @impl true
   def init(_) do
     case :ets.whereis(@table_name) do
-      :undefined -> :ets.new(@table_name, [:set, :public, :named_table, read_concurrency: true])
+      :undefined -> 
+        :ets.new(@table_name, [:set, :public, :named_table, read_concurrency: true])
       _ -> :ok
     end
 
@@ -45,6 +46,13 @@ defmodule SimpleWeather.Utils.EtsCache do
   @impl true
   def handle_call({:put, {key, value, ttl}}, _from, _) do
     :ets.insert(@table_name, {key, %{value: value, ttl: calculate_ttl(ttl)}})
+    Process.send_after(self(), {:invalidate, key}, ttl)
     {:reply, value, :no_state}
+  end
+
+  @impl true
+  def handle_info({:invalidate, key}, _) do
+    :ets.delete(@table_name, key)
+    {:noreply, :no_state}
   end
 end

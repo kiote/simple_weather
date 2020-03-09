@@ -12,5 +12,11 @@ defmodule SimpleWeather.Utils.EtsCacheTest do
       EtsCache.put({"key", "value", 1})
       assert "value" == EtsCache.get("key")
     end
+
+    test "invalidates after given ttl" do
+      EtsCache.put({"key", "value", 1})
+      :timer.sleep(2)
+      refute EtsCache.get("key")
+    end
   end
 end
