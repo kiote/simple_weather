@@ -15,14 +15,13 @@ defmodule SimpleWeather.WeatherReceiver do
 
   defp maybe_get_from_cache(%{lat: lat, long: long}) do
     key = "#{lat}#{long}"
-    res = EtsCache.get(key)
-
-    if res == nil do
-      res = weather_adapter().today()
-      EtsCache.put({key, res, @ttl})
-      res
-    else
-      res
+    case EtsCache.get(key) do
+      nil ->
+        res = weather_adapter().today()
+        EtsCache.put({key, res, @ttl})
+        res
+      val ->
+        val
     end
   end
 end
