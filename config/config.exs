@@ -17,7 +17,7 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
 
 config :simple_weather,
   darkskyx_adapter: SimpleWeather.DarkSkyxAdapter,
-  machine_readable_presenter: SimpleWeather.Presenter
+  machine_readable_presenter: SimpleWeather.DarkSkyxPresenter
 
 # Configures Elixir's Logger
 config :logger, :console,
