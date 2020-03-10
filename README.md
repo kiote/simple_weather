@@ -11,6 +11,7 @@ Open [`localhost:4000/api`](http:localhost:4000/api)
 
 # Interpretation of result
 
+```
 000 0 0 0
  |  | | |
  |  | | --- weather in 7h from now
@@ -34,6 +35,7 @@ Open [`localhost:4000/api`](http:localhost:4000/api)
             100: temperature yesterday night was less than +5
             50:  two nights ago it was less than +5 during the night
             20:  three nights ago temperature was less than +5
+```
 
 To start your Phoenix server:
 
