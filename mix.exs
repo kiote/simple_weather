@@ -8,6 +8,7 @@ defmodule SimpleWeather.MixProject do
       elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
+      elixirc_options: [warnings_as_errors: true],
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
       deps: deps()
@@ -39,7 +40,8 @@ defmodule SimpleWeather.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:darkskyx, "~> 1.0"},
       {:mox, "~> 0.5.2", only: :test},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:dialyxir, "~> 0.4", only: [:dev]}
     ]
   end
 end

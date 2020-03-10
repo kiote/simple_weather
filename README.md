@@ -5,6 +5,35 @@
 Goes to weather provider and gets weather data for today + historical data for last week.
 Suppose to provide data to IoT device with answers "is it safe to go bike riding today" question.
 
+# Result
+
+Open [`localhost:4000/api`](http:localhost:4000/api)
+
+# Interpretation of result
+
+000 0 0 0
+ |  | | |
+ |  | | --- weather in 7h from now
+ |  | |     0 : no rain, no wind, sunny
+ |  | |     2 : no rain, windy or cloudy
+ |  | |     6 : no rain, extreme wind
+ |  | |     10: little rain
+ |  | |     20: medium rain
+ |  | |     40: heavy rain or any other type of rain above with wind
+ |  | |
+ |  | ----- weather in 1h from now
+ |  |       (same possible values as for 7h above)
+ |  |
+ |  ------- weather yesterday
+ |          0: no rain
+ |          2: small rain
+ |          4: heavy rain
+ |
+ ---------- weather current week
+            000: temperature during every night was +5 or more
+            100: temperature yesterday night was less than +5
+            50:  two nights ago it was less than +5 during the night
+            20:  three nights ago temperature was less than +5
 
 To start your Phoenix server:
 
