@@ -8,7 +8,11 @@ defmodule SimpleWeather.Presenter do
     |> to_machine_readable_representation
   end
 
-  defp to_machine_readable_representation(%{} = params) do
-    presenter().convert(params)
+  def convert(_params) do
+    "600000"
+  end
+
+  defp to_machine_readable_representation({:ok, forecast, _headers}) do
+    presenter().convert(forecast)
   end
 end

@@ -16,7 +16,8 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
   live_view: [signing_salt: "9rGIXRLp"]
 
 config :simple_weather,
-  darkskyx_adapter: SimpleWeather.DarkSkyxAdapter
+  darkskyx_adapter: SimpleWeather.DarkSkyxAdapter,
+  machine_readable_presenter: SimpleWeather.Presenter
 
 # Configures Elixir's Logger
 config :logger, :console,

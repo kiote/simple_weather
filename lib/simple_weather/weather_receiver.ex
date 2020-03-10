@@ -2,7 +2,7 @@ defmodule SimpleWeather.WeatherReceiver do
   alias SimpleWeather.AdaptersFactory
   alias SimpleWeather.Utils.EtsCache
 
-  @ttl 60 * 10
+  @ttl 60 * 10 * 1000 # 10 min
 
   def weather_adapter do
     AdaptersFactory.darkskyx()

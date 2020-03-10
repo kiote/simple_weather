@@ -19,8 +19,6 @@ defmodule SimpleWeather.Utils.EtsCache do
 
   def clear, do: :ets.delete_all_objects(@table_name)
 
-  def calculate_ttl(ttl) when is_integer(ttl), do: DateTime.add(DateTime.utc_now(), ttl, :second)
-
   # Server 
 
   @impl true
@@ -45,7 +43,7 @@ defmodule SimpleWeather.Utils.EtsCache do
 
   @impl true
   def handle_call({:put, {key, value, ttl}}, _from, _) do
-    :ets.insert(@table_name, {key, %{value: value, ttl: calculate_ttl(ttl)}})
+    :ets.insert(@table_name, {key, %{value: value}})
     Process.send_after(self(), {:invalidate, key}, ttl)
     {:reply, value, :no_state}
   end
