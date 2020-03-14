@@ -24,9 +24,11 @@ defmodule SimpleWeather.Utils.EtsCache do
   @impl true
   def init(_) do
     case :ets.whereis(@table_name) do
-      :undefined -> 
+      :undefined ->
         :ets.new(@table_name, [:set, :public, :named_table, read_concurrency: true])
-      _ -> :ok
+
+      _ ->
+        :ok
     end
 
     {:ok, []}

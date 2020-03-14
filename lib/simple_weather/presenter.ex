@@ -4,10 +4,9 @@ defmodule SimpleWeather.Presenter do
   end
 
   def result do
-    SimpleWeather.WeatherReceiver.today
+    SimpleWeather.WeatherReceiver.today()
     |> to_machine_readable_representation
   end
-
 
   defp to_machine_readable_representation({:ok, forecast, _headers}) do
     presenter().convert(forecast)
