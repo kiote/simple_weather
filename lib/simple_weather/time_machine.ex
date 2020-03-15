@@ -6,14 +6,18 @@ defmodule SimpleWeather.TimeMachine do
   @day_start_hour 8
 
   def get_time_stamp(:yesterday) do
-    day_start_unix() - 60 * 60 * @one_day_hours + to_day_start()
+    day_start_unix() - to_seconds(@one_day_hours) + to_day_start()
   end
 
-  def day_start_unix() do
+  defp day_start_unix() do
     Timex.now() |> Timex.beginning_of_day() |> Timex.to_unix()
   end
 
-  def to_day_start() do
-    @day_start_hour * 60 * 60
+  defp to_day_start() do
+    to_seconds(@day_start_hour)
+  end
+
+  defp to_seconds(val) when is_integer(val) do
+    val * 60 * 60
   end
 end
