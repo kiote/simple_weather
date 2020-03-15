@@ -19,8 +19,8 @@ defmodule SimpleWeather.WeatherReceiver do
     |> maybe_get_from_cache
   end
 
-  defp maybe_get_from_cache(%{lat: lat, long: long}) do
-    key = "#{lat}#{long}"
+  defp maybe_get_from_cache(params) do
+    key = weather_adapter().get_cache_key(params)
 
     case EtsCache.get(key) do
       nil ->

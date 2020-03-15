@@ -3,33 +3,46 @@ defmodule SimpleWeather.DarkSkyxAdapter do
 
   alias SimpleWeather.TimeMachine
   alias SimpleWeather.Location
+  alias SimpleWeather.Darkskyx.ParamsForToday
+  alias SimpleWeather.Darkskyx.ParamsForTimeMachine
 
   @forecast_defaults %Darkskyx{exclude: "daily,minutely", units: "auto"}
   @time_machine_defaults %Darkskyx{exclude: "hourly", units: "auto"}
 
-  @impl SimpleWeather.AdapterBehaviour
+  @impl true 
   def params_for_today() do
-    {lat, long} = Location.lat_long_location
-    %{lat: lat, long: long, defaults: @forecast_defaults}
+    {lat, long} = Location.lat_long_location()
+    %ParamsForToday{lat: lat, long: long, defaults: @forecast_defaults}
   end
 
-  @impl SimpleWeather.AdapterBehaviour
+  @impl true
   def today() do
     %{lat: lat, long: long, defaults: defaults} = params_for_today()
     Darkskyx.forecast(lat, long, defaults)
   end
 
-  def params_for_time_machine(day \\ :today) do
-    {lat, long} = Location.lat_long_location
+  @impl true
+  def params_for_time_machine(day \\ :yesterday) do
+    {lat, long} = Location.lat_long_location()
     timestamp = TimeMachine.get_time_stamp(day)
-    %{lat: lat, long: long, timestamp: timestamp, defaults: @time_machine_defaults}
+    %ParamsForTimeMachine{lat: lat, long: long, timestamp: timestamp, defaults: @time_machine_defaults}
   end
 
-  @impl SimpleWeather.AdapterBehaviour
+  @impl true
   def time_machine(day \\ :yesterday) do
     %{lat: lat, long: long, timestamp: timestamp, defaults: defaults} =
       params_for_time_machine(day)
 
     Darkskyx.time_machine(lat, long, timestamp, defaults)
+  end
+
+  @impl true
+  def get_cache_key(%ParamsForToday{lat: lat, long: long}) do
+    "#{lat}#{long}"
+  end
+
+  @impl true
+  def get_cache_key(%ParamsForTimeMachine{lat: lat, long: long, timestamp: timestamp}) do
+    "#{lat}#{long}#{timestamp}"
   end
 end

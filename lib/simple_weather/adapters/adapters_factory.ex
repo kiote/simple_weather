@@ -12,7 +12,17 @@ defmodule SimpleWeather.AdaptersFactory.UnknownOrEmptyAdapter do
   end
 
   @impl true
+  def params_for_time_machine() do
+    raise "You must specify adapter in config"
+  end
+
+  @impl true
   def time_machine(_) do
+    raise "You must specify adapter in config"
+  end
+
+  @impl true
+  def get_cache_key(_) do
     raise "You must specify adapter in config"
   end
 end
