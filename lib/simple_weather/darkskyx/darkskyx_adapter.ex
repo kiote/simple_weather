@@ -27,7 +27,9 @@ defmodule SimpleWeather.DarkSkyxAdapter do
 
   @impl SimpleWeather.AdapterBehaviour
   def time_machine(day \\ :yesterday) do
-    %{lat: lat, long: long, timestamp: timestamp, defaults: defaults} = params_for_time_machine(day)
+    %{lat: lat, long: long, timestamp: timestamp, defaults: defaults} =
+      params_for_time_machine(day)
+
     Darkskyx.time_machine(lat, long, timestamp, defaults)
   end
 end
