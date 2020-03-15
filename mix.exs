@@ -21,7 +21,7 @@ defmodule SimpleWeather.MixProject do
   def application do
     [
       mod: {SimpleWeather.Application, []},
-      extra_applications: [:logger, :runtime_tools, :darkskyx]
+      extra_applications: [:logger, :runtime_tools, :darkskyx, :timex]
     ]
   end
 
@@ -40,6 +40,7 @@ defmodule SimpleWeather.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:darkskyx, "~> 1.0"},
       {:mox, "~> 0.5.2", only: :test},
+      {:timex, "~> 3.5"},
       {:excoveralls, "~> 0.10", only: :test},
       {:dialyxir, "~> 0.4", only: [:dev]}
     ]

@@ -14,6 +14,11 @@ defmodule SimpleWeather.WeatherReceiver do
     |> maybe_get_from_cache()
   end
 
+  def time_machine(day \\ :yesterday) do
+    weather_adapter().params_for_time_machine(day)
+    |> maybe_get_from_cache
+  end
+
   defp maybe_get_from_cache(%{lat: lat, long: long}) do
     key = "#{lat}#{long}"
 

@@ -23,4 +23,9 @@ defmodule SimpleWeather.WeatherReceiverTest do
       assert WeatherReceiver.today() == %{}
     end
   end
+
+  describe "time_machine/1" do
+    test "invokes" do
+    end
+  end
 end
