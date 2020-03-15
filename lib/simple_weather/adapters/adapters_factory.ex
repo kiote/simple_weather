@@ -10,6 +10,11 @@ defmodule SimpleWeather.AdaptersFactory.UnknownOrEmptyAdapter do
   def params_for_today() do
     raise "You must specify adapter in config"
   end
+
+  @impl true
+  def time_machine(_) do
+    raise "You must specify adapter in config"
+  end
 end
 
 defmodule SimpleWeather.AdaptersFactory do

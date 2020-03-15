@@ -15,4 +15,13 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
       assert AdaptersFactory.darkskyx().today() == %{}
     end
   end
+
+  describe "time_machine/1" do
+    test "invokes" do
+      SimpleWeather.DarkSkyxAdapterMock
+      |> expect(:time_machine, fn _ -> %{} end)
+
+      assert AdaptersFactory.darkskyx().time_machine(:yesterday) == %{}
+    end
+  end
 end
