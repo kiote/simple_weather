@@ -1,4 +1,4 @@
-defmodule SimpleWeather.DarkSkyxAdapterTest do
+defmodule SimpleWeather.AdaptersFactoryTest do
   use ExUnit.Case, async: true
 
   import Mox
