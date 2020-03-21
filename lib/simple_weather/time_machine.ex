@@ -9,6 +9,14 @@ defmodule SimpleWeather.TimeMachine do
     day_start_unix() - to_seconds(@one_day_hours) + to_day_start()
   end
 
+  def get_time_stamp(:the_day_before_yesterday) do
+    day_start_unix() - to_seconds(2 * @one_day_hours) + to_day_start()
+  end
+
+  def get_time_stamp(:two_days_before_yesterday) do
+    day_start_unix() - to_seconds(3 * @one_day_hours) + to_day_start()
+  end
+
   defp day_start_unix() do
     Timex.now() |> Timex.beginning_of_day() |> Timex.to_unix()
   end

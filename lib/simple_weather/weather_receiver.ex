@@ -14,6 +14,21 @@ defmodule SimpleWeather.WeatherReceiver do
     |> maybe_get_from_cache()
   end
 
+  def yesterday do
+    weather_adapter().params_for_time_machine(:yesterday)
+    |> maybe_get_from_cache
+  end
+
+  def the_day_before_yesterday do
+    weather_adapter().params_for_time_machine(:the_day_before_yesterday)
+    |> maybe_get_from_cache
+  end
+
+  def two_days_before_yesterday do
+    weather_adapter().params_for_time_machine(:two_days_before_yesterday)
+    |> maybe_get_from_cache
+  end
+
   def time_machine(day \\ :yesterday) do
     weather_adapter().params_for_time_machine(day)
     |> maybe_get_from_cache
