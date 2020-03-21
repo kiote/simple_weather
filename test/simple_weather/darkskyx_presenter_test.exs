@@ -5,7 +5,7 @@ defmodule Darkskyx.PresenterTest do
     test "when it's less than +5 degrees" do
       val = %{
         "currently" => %{
-          "apparentTemperature" => -6.49,
+          "apparentTemperature" => -6.49
         }
       }
 
@@ -15,7 +15,7 @@ defmodule Darkskyx.PresenterTest do
     test "when it's more than +5 degrees" do
       val = %{
         "currently" => %{
-          "apparentTemperature" => 6.49,
+          "apparentTemperature" => 6.49
         }
       }
 
