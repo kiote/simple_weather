@@ -9,7 +9,7 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   @forecast_defaults %Darkskyx{exclude: "daily,minutely", units: "auto"}
   @time_machine_defaults %Darkskyx{exclude: "hourly", units: "auto"}
 
-  @impl true 
+  @impl true
   def params_for_today() do
     {lat, long} = Location.lat_long_location()
     %ParamsForToday{lat: lat, long: long, defaults: @forecast_defaults}
@@ -25,7 +25,13 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   def params_for_time_machine(day \\ :yesterday) do
     {lat, long} = Location.lat_long_location()
     timestamp = TimeMachine.get_time_stamp(day)
-    %ParamsForTimeMachine{lat: lat, long: long, timestamp: timestamp, defaults: @time_machine_defaults}
+
+    %ParamsForTimeMachine{
+      lat: lat,
+      long: long,
+      timestamp: timestamp,
+      defaults: @time_machine_defaults
+    }
   end
 
   @impl true
