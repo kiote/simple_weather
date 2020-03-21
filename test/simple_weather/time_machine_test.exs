@@ -9,11 +9,13 @@ defmodule SimpleWeather.TimeMachineTest do
     end
 
     test "the_day_before_yesterday" do
-      assert TimeMachine.get_time_stamp(:the_day_before_yesterday) < TimeMachine.get_time_stamp(:yesterday) 
+      assert TimeMachine.get_time_stamp(:the_day_before_yesterday) <
+               TimeMachine.get_time_stamp(:yesterday)
     end
 
     test "two_days_before_yesterday" do
-      assert TimeMachine.get_time_stamp(:two_days_before_yesterday) < TimeMachine.get_time_stamp(:the_day_before_yesterday) 
+      assert TimeMachine.get_time_stamp(:two_days_before_yesterday) <
+               TimeMachine.get_time_stamp(:the_day_before_yesterday)
     end
   end
 end

@@ -3,7 +3,11 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
 
   import Mox
 
-  setup :verify_on_exit!
+  setup do
+    verify_on_exit!()
+    SimpleWeather.Utils.EtsCache.clear()
+    :ok
+  end
 
   alias SimpleWeather.AdaptersFactory
 

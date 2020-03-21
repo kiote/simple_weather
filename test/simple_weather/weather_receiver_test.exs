@@ -3,6 +3,12 @@ defmodule SimpleWeather.WeatherReceiverTest do
 
   import Mox
 
+  setup do
+    verify_on_exit!()
+    SimpleWeather.Utils.EtsCache.clear()
+    :ok
+  end
+
   alias SimpleWeather.WeatherReceiver
 
   describe "today/0" do
