@@ -1,9 +1,8 @@
 defmodule SimpleWeather.Cache do
-  
   alias SimpleWeather.Utils.EtsCache
   # 10 min
   @ttl 60 * 10 * 1000
-  
+
   def maybe_get_from(key_params, weather_adapter, func) do
     key = weather_adapter.get_cache_key(key_params)
 
@@ -31,5 +30,4 @@ defmodule SimpleWeather.Cache do
         val
     end
   end
-
 end
