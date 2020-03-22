@@ -4,6 +4,8 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
   import Mox
 
   alias SimpleWeather.DarkSkyxAdapter
+  alias SimpleWeather.Darkskyx.ParamsForToday
+  alias SimpleWeather.Darkskyx.ParamsForTimeMachine
 
   test "params_for_today" do
     assert %SimpleWeather.Darkskyx.ParamsForToday{} = DarkSkyxAdapter.params_for_today()
@@ -26,5 +28,13 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
     |> expect(:time_machine, fn _, _, _, _ -> {:ok, "something", "something"} end)
 
     assert {:ok, _forecast, _headers} = DarkSkyxAdapter.time_machine()
+  end
+
+  test "get_cache_key with ParamsForToday" do
+    assert "12" == DarkSkyxAdapter.get_cache_key(%ParamsForToday{lat: "1", long: "2"})
+  end
+
+  test "get_cache_key with ParamsForTimeMachine" do
+    assert "123" == DarkSkyxAdapter.get_cache_key(%ParamsForTimeMachine{lat: "1", long: "2", timestamp: "3"})
   end
 end
