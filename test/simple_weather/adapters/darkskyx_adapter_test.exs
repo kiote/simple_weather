@@ -16,7 +16,7 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
 
   test "today" do
     SimpleWeather.DarkskyxMock
-    |> expect(:forecast, fn _, _, _-> {:ok, "something", "something"} end)
+    |> expect(:forecast, fn _, _, _ -> {:ok, "something", "something"} end)
 
     assert {:ok, _forecast, _headers} = DarkSkyxAdapter.today()
   end
