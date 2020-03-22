@@ -31,15 +31,4 @@ defmodule SimpleWeather.WeatherReceiverTest do
       assert WeatherReceiver.today() == %{}
     end
   end
-
-  describe "time_machine/1" do
-    test "invokes" do
-      SimpleWeather.DarkskyxAdapterMock
-      |> expect(:params_for_time_machine, fn _ -> %{lat: 1.1, long: 1.1, timestamp: 12} end)
-      |> expect(:get_cache_key, fn _ -> "" end)
-      |> expect(:today, fn -> %{} end)
-
-      assert WeatherReceiver.time_machine() == %{}
-    end
-  end
 end
