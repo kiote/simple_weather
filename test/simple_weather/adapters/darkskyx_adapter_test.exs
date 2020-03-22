@@ -35,6 +35,11 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
   end
 
   test "get_cache_key with ParamsForTimeMachine" do
-    assert "123" == DarkSkyxAdapter.get_cache_key(%ParamsForTimeMachine{lat: "1", long: "2", timestamp: "3"})
+    assert "123" ==
+             DarkSkyxAdapter.get_cache_key(%ParamsForTimeMachine{
+               lat: "1",
+               long: "2",
+               timestamp: "3"
+             })
   end
 end
