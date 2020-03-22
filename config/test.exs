@@ -7,7 +7,8 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
   server: false
 
 config :simple_weather,
-  darkskyx_adapter: SimpleWeather.DarkSkyxAdapterMock
+  darkskyx_adapter: SimpleWeather.DarkskyxAdapterMock,
+  darkskyx_connector: SimpleWeather.DarkskyxMock
 
 # Print only warnings and errors during test
 config :logger, level: :warn

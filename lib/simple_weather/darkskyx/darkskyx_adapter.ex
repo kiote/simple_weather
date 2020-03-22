@@ -6,6 +6,8 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   alias SimpleWeather.Darkskyx.ParamsForToday
   alias SimpleWeather.Darkskyx.ParamsForTimeMachine
 
+  defp get_connector, do: Application.get_env(:simple_weather, :darkskyx_connector)
+
   @forecast_defaults %Darkskyx{exclude: "daily,minutely", units: "auto"}
   @time_machine_defaults %Darkskyx{exclude: "hourly", units: "auto"}
 
@@ -18,7 +20,7 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   @impl true
   def today() do
     %{lat: lat, long: long, defaults: defaults} = params_for_today()
-    Darkskyx.forecast(lat, long, defaults)
+    get_connector().forecast(lat, long, defaults)
   end
 
   @impl true
@@ -39,7 +41,7 @@ defmodule SimpleWeather.DarkSkyxAdapter do
     %{lat: lat, long: long, timestamp: timestamp, defaults: defaults} =
       params_for_time_machine(day)
 
-    Darkskyx.time_machine(lat, long, timestamp, defaults)
+    get_connector().time_machine(lat, long, timestamp, defaults)
   end
 
   @impl true

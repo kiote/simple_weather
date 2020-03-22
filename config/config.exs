@@ -17,6 +17,7 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
 
 config :simple_weather,
   darkskyx_adapter: SimpleWeather.DarkSkyxAdapter,
+  darkskyx_connector: Darkskyx,
   machine_readable_presenter: SimpleWeather.DarkSkyxPresenter,
   location: {59.4716181, 24.5981613}
 
