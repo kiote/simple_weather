@@ -20,4 +20,11 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
 
     assert {:ok, _forecast, _headers} = DarkSkyxAdapter.today()
   end
+
+  test "time_machine" do
+    SimpleWeather.DarkskyxMock
+    |> expect(:time_machine, fn _, _, _, _ -> {:ok, "something", "something"} end)
+
+    assert {:ok, _forecast, _headers} = DarkSkyxAdapter.time_machine()
+  end
 end
