@@ -4,15 +4,24 @@ defmodule SimpleWeather.Presenter do
   end
 
   def result do
-    today() <> yesterday() <> the_day_before_yesterday() <> two_days_before_yesterday()
+    hours_from_now(2) <> hours_from_now(7) <> today() <> yesterday() <> the_day_before_yesterday() <> two_days_before_yesterday()
   end
 
   defp to_machine_readable_representation({:ok, forecast, _headers}) do
     presenter().convert(forecast)
   end
 
+  defp for_hours_from_now({:ok, forecast, headers}, _hours) do
+    {:ok, forecast, headers}
+  end
+
+  defp hours_from_now(hours) do
+    SimpleWeather.WeatherReceiver.today()
+    |> for_hours_from_now(hours)
+    |> to_machine_readable_representation()
+  end
+
   defp today() do
-    # it must be next two hours + two hours after 7 hours from now
     SimpleWeather.WeatherReceiver.today()
     |> to_machine_readable_representation()
   end
