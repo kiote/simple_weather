@@ -19,12 +19,12 @@ defmodule SimpleWeather.PresenterTest do
         {:ok, %{"currently" => %{"apparentTemperature" => 10}}, "doesnt matter"}
 
       SimpleWeather.DarkskyxAdapterMock
-      |> expect(:params_for_today, fn -> %{} end)
-      |> expect(:get_cache_key, 4, fn _ -> "" end)
+      |> expect(:params_for_today, 3, fn -> %{} end)
+      |> expect(:get_cache_key, 6, fn _ -> "" end)
       |> expect(:params_for_time_machine, 3, fn _ -> Timex.now() |> Timex.to_unix() end)
       |> expect(:today, fn -> weather_service_result end)
 
-      assert Presenter.result() == "0000"
+      assert Presenter.result() == "000000"
     end
   end
 end
