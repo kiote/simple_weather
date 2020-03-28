@@ -10,7 +10,7 @@ defmodule SimpleWeather.WeatherReceiver do
 
   def today do
     weather_adapter().params_for_today()
-             |> Cache.maybe_get_from(weather_adapter(), &weather_adapter().today/0)
+    |> Cache.maybe_get_from(weather_adapter(), &weather_adapter().today/0)
   end
 
   def yesterday do
