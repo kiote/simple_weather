@@ -1,14 +1,21 @@
 defmodule SimpleWeather.Presenter do
+  use EnumType
+
   defp presenter() do
     Application.get_env(:simple_weather, :machine_readable_presenter)
   end
 
   def result do
-    hours_from_now(2) <> hours_from_now(7) <> today() <> yesterday() <> the_day_before_yesterday() <> two_days_before_yesterday()
+    right_now() <>
+      hours_from_now(:two_hours_from_now) <>
+      hours_from_now(:seven_hours_from_now) <>
+      yesterday() <>
+      the_day_before_yesterday() <>
+      two_days_before_yesterday()
   end
 
-  defp to_machine_readable_representation({:ok, forecast, _headers}) do
-    presenter().convert(forecast)
+  defp to_machine_readable_representation({:ok, forecast, _headers}, time_slot \\ :now) do
+    presenter().convert(forecast, time_slot)
   end
 
   defp for_hours_from_now({:ok, forecast, headers}, _hours) do
@@ -18,10 +25,10 @@ defmodule SimpleWeather.Presenter do
   defp hours_from_now(hours) do
     SimpleWeather.WeatherReceiver.today()
     |> for_hours_from_now(hours)
-    |> to_machine_readable_representation()
+    |> to_machine_readable_representation(hours)
   end
 
-  defp today() do
+  defp right_now() do
     SimpleWeather.WeatherReceiver.today()
     |> to_machine_readable_representation()
   end

@@ -16,6 +16,11 @@ defmodule SimpleWeather.TimeMachine do
     Timex.shift(day_start(), days: -3) |> to_unix() |> Kernel.+(to_day_start())
   end
 
+  def shifted_time(val) do
+    {Timex.now() |> Timex.shift(hours: val) |> Timex.to_unix(),
+    Timex.now() |> Timex.shift(hours: val - 1) |> Timex.to_unix() }
+  end
+
   defp day_start() do
     Timex.now() |> Timex.beginning_of_day()
   end

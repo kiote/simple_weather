@@ -41,6 +41,7 @@ defmodule SimpleWeather.MixProject do
       {:darkskyx, "~> 1.0"},
       {:mox, "~> 0.5.2", only: :test},
       {:timex, "~> 3.5"},
+      {:enum_type, "~> 1.0.1"},
       {:excoveralls, "~> 0.10", only: :test},
       {:dialyxir, "~> 0.4", only: [:dev]}
     ]
