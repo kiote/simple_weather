@@ -38,7 +38,7 @@ defmodule SimpleWeather.DarkSkyxPresenter do
     {shifted_time, prev_hour} = TimeMachine.shifted_time(7)
 
     if time >= prev_hour && time <= shifted_time do
-      Logger.info("Two hours from now: #{inspect(%{temperature: t, time: time})}")
+      Logger.info("Seven hours from now: #{inspect(%{temperature: t, time: time})}")
 
       temperature(t)
     else

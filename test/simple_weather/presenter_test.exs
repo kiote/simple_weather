@@ -16,7 +16,7 @@ defmodule SimpleWeather.PresenterTest do
   describe "result/0" do
     test "returns expected result" do
       weather_service_result =
-        {:ok, %{"currently" => %{"apparentTemperature" => 10}}, "doesnt matter"}
+        {:ok, %{"currently" => %{"temperature" => 10}, "hourly" => %{"data" => []}}, "doesnt matter"}
 
       SimpleWeather.DarkskyxAdapterMock
       |> expect(:params_for_today, 3, fn -> %{} end)
@@ -24,7 +24,7 @@ defmodule SimpleWeather.PresenterTest do
       |> expect(:params_for_time_machine, 3, fn _ -> Timex.now() |> Timex.to_unix() end)
       |> expect(:today, fn -> weather_service_result end)
 
-      assert Presenter.result() == "000000"
+      assert Presenter.result() == "0000"
     end
   end
 end
