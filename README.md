@@ -50,3 +50,13 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 `export DARKSKY_API_KEY=<api_key>`
 
+# Build a new version
+
+```
+docker build --tag simple-wather:1.0 .
+docker save -o ~/Sandbox/simple_weather/out.tar simple-wather:1.0
+scp out.tar pi@raspberry
+# on raspberry
+docker load -i out.tar
+docker run simple_weather:1.0
+```

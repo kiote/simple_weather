@@ -1,6 +1,8 @@
 defmodule SimpleWeather.Presenter do
   use EnumType
 
+  require Logger
+
   defp presenter() do
     Application.get_env(:simple_weather, :machine_readable_presenter)
   end
@@ -14,8 +16,14 @@ defmodule SimpleWeather.Presenter do
       two_days_before_yesterday()
   end
 
-  defp to_machine_readable_representation({:ok, forecast, _headers}, time_slot \\ :now) do
+  defp to_machine_readable_representation(response, time_slot \\ :now)
+  defp to_machine_readable_representation({:ok, forecast, _headers}, time_slot) do
     presenter().convert(forecast, time_slot)
+  end
+
+  defp to_machine_readable_representation(error, _something) do
+    Logger.error(error)
+    "9"
   end
 
   defp for_hours_from_now({:ok, forecast, headers}, _hours) do

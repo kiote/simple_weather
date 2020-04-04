@@ -11,7 +11,13 @@ defmodule SimpleWeather.MixProject do
       elixirc_options: [warnings_as_errors: true],
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
-      deps: deps()
+      deps: deps(),
+releases: [
+        prod: [
+          steps: [:assemble, :tar]
+        ]
+      ]
+
     ]
   end
 
@@ -21,8 +27,8 @@ defmodule SimpleWeather.MixProject do
   def application do
     [
       mod: {SimpleWeather.Application, []},
-      extra_applications: [:logger, :runtime_tools, :darkskyx, :timex]
-    ]
+      extra_applications: [:logger, :runtime_tools, :darkskyx, :timex],
+          ]
   end
 
   # Specifies which paths to compile per environment.
