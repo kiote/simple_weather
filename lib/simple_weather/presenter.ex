@@ -8,7 +8,9 @@ defmodule SimpleWeather.Presenter do
   end
 
   def result do
-    "#{right_now()}#{hours_from_now(:two_hours_from_now)}#{hours_from_now(:seven_hours_from_now)}#{yesterday()}#{the_day_before_yesterday()}#{two_days_before_yesterday()}"
+    "#{right_now()}#{hours_from_now(:two_hours_from_now)}#{hours_from_now(:seven_hours_from_now)}#{
+      yesterday()
+    }#{the_day_before_yesterday()}#{two_days_before_yesterday()}"
   end
 
   defp to_machine_readable_representation(response, time_slot \\ :now)

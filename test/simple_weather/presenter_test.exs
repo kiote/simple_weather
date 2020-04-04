@@ -16,9 +16,11 @@ defmodule SimpleWeather.PresenterTest do
   describe "result/0" do
     test "returns expected result" do
       weather_service_result =
-        {:ok, %{"currently" => %{"temperature" => 10, "precipProbability" => 0.0}, "hourly" => %{"data" => []}},
-          
-         "doesnt matter"}
+        {:ok,
+         %{
+           "currently" => %{"temperature" => 10, "precipProbability" => 0.0},
+           "hourly" => %{"data" => []}
+         }, "doesnt matter"}
 
       SimpleWeather.DarkskyxAdapterMock
       |> expect(:params_for_today, 3, fn -> %{} end)
