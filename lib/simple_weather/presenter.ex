@@ -3,15 +3,56 @@ defmodule SimpleWeather.Presenter do
 
   require Logger
 
-  defp presenter() do
-    Application.get_env(:simple_weather, :machine_readable_presenter)
-  end
+  @headers [
+    "Now: ",
+    "In 2 hours: ",
+    "In 7 hours: ",
+    "Yesterday: ",
+    "The day before: ",
+    "Two days before: "
+  ]
 
   def result do
     "#{right_now()}#{hours_from_now(:two_hours_from_now)}#{hours_from_now(:seven_hours_from_now)}#{
       yesterday()
     }#{the_day_before_yesterday()}#{two_days_before_yesterday()}"
   end
+
+  def human_readable_result do
+    result()
+    |> interpret_for_human()
+  end
+
+  # private
+
+  defp presenter() do
+    Application.get_env(:simple_weather, :machine_readable_presenter)
+  end
+
+  defp interpret_for_human(r) when is_binary(r) do
+    do_interpret_for_human(String.to_charlist(r), @headers)
+  end
+
+  defp interpret_for_human(_) do
+    Logger.error("Can not interpret, result is not a string")
+    "Sorry, there was an error (see logs)"
+  end
+
+  defp do_interpret_for_human([head | rest], [name_for_head | names_for_rest]) do
+    "#{name_for_head}" <>
+      case head do
+        48 ->
+          "Good conditions\n"
+
+        52 ->
+          "Moderate conditions\n"
+
+        _ ->
+          "Severe conditions\n"
+      end <> do_interpret_for_human(rest, names_for_rest)
+  end
+
+  defp do_interpret_for_human(_, _), do: ""
 
   defp to_machine_readable_representation(response, time_slot \\ :now)
 

@@ -4,4 +4,8 @@ defmodule SimpleWeatherWeb.PageController do
   def index(conn, _params) do
     text(conn, SimpleWeather.Presenter.result())
   end
+
+  def human(conn, _params) do
+    text(conn, SimpleWeather.Presenter.human_readable_result())
+  end
 end

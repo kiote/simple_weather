@@ -9,4 +9,6 @@ defmodule SimpleWeatherWeb.Router do
     pipe_through :api
     get "/", PageController, :index
   end
+
+  get "/", SimpleWeatherWeb.PageController, :human
 end
