@@ -12,12 +12,11 @@ defmodule SimpleWeather.MixProject do
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
       deps: deps(),
-releases: [
+      releases: [
         prod: [
           steps: [:assemble, :tar]
         ]
       ]
-
     ]
   end
 
@@ -27,8 +26,8 @@ releases: [
   def application do
     [
       mod: {SimpleWeather.Application, []},
-      extra_applications: [:logger, :runtime_tools, :darkskyx, :timex],
-          ]
+      extra_applications: [:logger, :runtime_tools, :darkskyx, :timex]
+    ]
   end
 
   # Specifies which paths to compile per environment.

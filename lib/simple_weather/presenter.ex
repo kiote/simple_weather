@@ -17,6 +17,7 @@ defmodule SimpleWeather.Presenter do
   end
 
   defp to_machine_readable_representation(response, time_slot \\ :now)
+
   defp to_machine_readable_representation({:ok, forecast, _headers}, time_slot) do
     presenter().convert(forecast, time_slot)
   end
