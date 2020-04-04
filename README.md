@@ -11,31 +11,18 @@ Open [`localhost:4000/api`](http:localhost:4000/api)
 
 # Interpretation of result
 
-```
-000 0 0 0
- |  | | |
- |  | | --- weather in 7h from now
- |  | |     0 : no rain, no wind, sunny
- |  | |     2 : no rain, windy or cloudy
- |  | |     6 : no rain, extreme wind
- |  | |     10: little rain
- |  | |     20: medium rain
- |  | |     40: heavy rain or any other type of rain above with wind
- |  | |
- |  | ----- weather in 1h from now
- |  |       (same possible values as for 7h above)
- |  |
- |  ------- weather yesterday
- |          0: no rain
- |          2: small rain
- |          4: heavy rain
- |
- ---------- weather current week
-            000: temperature during every night was +5 or more
-            100: temperature yesterday night was less than +5
-            50:  two nights ago it was less than +5 during the night
-            20:  three nights ago temperature was less than +5
-```
+There are 6 numbers in a row with possible values 0, 4, 8 for each.
+
+0 - very good conditions, temperature > +5 and no preciptions
+4 - moderate conditions, either too cold or probable rain
+8 - severe conditions, both too cold and preciptions
+
+1st number: now
+2nd: 2 hours from now
+3rd: 7 hours from now
+4th: yesterday
+5th: the day before yesterday
+6th: two days before
 
 To start your Phoenix server:
 
