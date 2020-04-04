@@ -5,7 +5,8 @@ defmodule Darkskyx.PresenterTest do
     test "when it's less than +5 degrees" do
       val = %{
         "currently" => %{
-          "temperature" => -6.49
+          "temperature" => -6.49,
+          "precipProbability" => 0.0
         }
       }
 
@@ -15,11 +16,35 @@ defmodule Darkskyx.PresenterTest do
     test "when it's more than +5 degrees" do
       val = %{
         "currently" => %{
-          "temperature" => 6.49
+          "temperature" => 6.49,
+          "precipProbability" => 0.0
         }
       }
 
       assert SimpleWeather.DarkSkyxPresenter.convert(val, :now) == "0"
+    end
+
+    test "when precipProbability is high" do
+      val = %{
+        "currently" => %{
+          "temperature" => 6.49,
+          "precipProbability" => 0.9
+        }
+      }
+
+      assert SimpleWeather.DarkSkyxPresenter.convert(val, :now) == "6"
+    end
+
+    test "when precipProbability is low" do
+      val = %{
+        "currently" => %{
+          "temperature" => 6.49,
+          "precipProbability" => 0.0
+        }
+      }
+
+      assert SimpleWeather.DarkSkyxPresenter.convert(val, :now) == "0"
+
     end
   end
 end

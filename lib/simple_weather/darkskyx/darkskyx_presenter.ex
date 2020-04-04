@@ -2,12 +2,15 @@ defmodule SimpleWeather.DarkSkyxPresenter do
   require Logger
   alias SimpleWeather.TimeMachine
 
-  @threshold 4
-  @temperature_negative_impact "6"
-  @temperature_positive_impact "0"
+  @temperature_threshold 4
+  @probability_threshold 0.5
+  @negative_impact 6
+  @positive_impact 0
 
-  def convert(%{"currently" => %{"temperature" => t}}, :now) do
+  def convert(%{"currently" => %{"temperature" => t, "precipProbability" => p}}, :now) do
     temperature(t)
+    |> Kernel.+(precip_probability(p))
+    |> to_string() 
   end
 
   def convert(%{"hourly" => %{"data" => hourly_forecast}}, :two_hours_from_now) do
@@ -30,6 +33,8 @@ defmodule SimpleWeather.DarkSkyxPresenter do
     end
   end
 
+  # private
+
   defp for_two_hours_from_now(_val, acc) do
     acc
   end
@@ -48,9 +53,15 @@ defmodule SimpleWeather.DarkSkyxPresenter do
 
   defp for_seven_hours_from_now(%{}, acc), do: acc
 
-  defp temperature(t) when t <= @threshold do
-    @temperature_negative_impact
+  defp temperature(t) when t <= @temperature_threshold do
+    @negative_impact
   end
 
-  defp temperature(_), do: @temperature_positive_impact
+  defp temperature(_), do: @positive_impact
+
+  defp precip_probability(p) when p <= @probability_threshold do
+    @positive_impact
+  end
+
+  defp precip_probability(_), do: @negative_impact
 end
