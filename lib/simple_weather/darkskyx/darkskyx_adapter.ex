@@ -8,7 +8,7 @@ defmodule SimpleWeather.DarkSkyxAdapter do
 
   defp get_connector, do: Application.get_env(:simple_weather, :darkskyx_connector)
 
-  @forecast_defaults %Darkskyx{exclude: "daily,minutely", units: "auto"}
+  @forecast_defaults %Darkskyx{exclude: "minutely", units: "auto"}
   @time_machine_defaults %Darkskyx{exclude: "hourly", units: "auto"}
 
   @impl true
