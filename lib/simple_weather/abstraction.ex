@@ -8,7 +8,8 @@ defmodule SimpleWeather.Abstraction do
   @spec today(any()) :: %Today{morning: %Condition{}, evening: %Condition{}, till_dark: integer()}
   def today(implementation) do
     {:ok, today, _headers} = implementation.today()
-    _till_dark = get_till_dark_from_now(today)
+    till_dark = get_till_dark_from_now(today)
+    %Today{morning: %Condition{}, evening: %Condition{}, till_dark: till_dark}
   end
 
   @spec days_ago(days: non_neg_integer(), implementation: any()) :: %ShortCondition{}
