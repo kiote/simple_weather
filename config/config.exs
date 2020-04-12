@@ -16,6 +16,7 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
   live_view: [signing_salt: "9rGIXRLp"]
 
 config :simple_weather,
+  implementation: SimpleWeather.DarkSkyxAdapter,
   darkskyx_adapter: SimpleWeather.DarkSkyxAdapter,
   darkskyx_connector: Darkskyx,
   machine_readable_presenter: SimpleWeather.DarkSkyxPresenter,

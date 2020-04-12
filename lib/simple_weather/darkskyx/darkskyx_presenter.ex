@@ -6,7 +6,7 @@ defmodule SimpleWeather.DarkSkyxPresenter do
   @probability_threshold 0.5
   @negative_impact 2
   @positive_impact 0
-  @two_hours 2*60*60
+  @two_hours 2 * 60 * 60
 
   def convert(
         %{
@@ -61,7 +61,6 @@ defmodule SimpleWeather.DarkSkyxPresenter do
     |> to_string()
   end
 
-
   defp for_seven_hours_from_now(
          %{"time" => time, "temperature" => t, "precipProbability" => p},
          ""
@@ -93,6 +92,7 @@ defmodule SimpleWeather.DarkSkyxPresenter do
 
   defp sunset(s) do
     now = Timex.now() |> Timex.to_unix()
+
     if s - @two_hours > now do
       @negative_impact
     else
