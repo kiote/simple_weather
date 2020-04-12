@@ -6,12 +6,13 @@ defmodule SimpleWeather.AbstractionTest do
 
   alias SimpleWeather.Abstraction
 
-  setup :verify_on_exit!
+  setup do
+    :verify_on_exit!
+    %{forecast: mocked_forecast(), impl: SimpleWeather.DarkSkyxAdapter}
+  end
 
   describe "today/0" do
-    test "returns correct hours till sunset" do
-      forecast = mocked_forecast()
-
+    test "returns correct hours till sunset", %{forecast: forecast, impl: impl} do
       SimpleWeather.DarkskyxMock
       |> expect(:forecast, fn _, _, _ -> {:ok, forecast, "headers"} end)
 
@@ -19,8 +20,19 @@ defmodule SimpleWeather.AbstractionTest do
       |> expect(:now, fn -> 1_577_840_400 end)
       |> expect(:to_hours, fn _ -> 2 end)
 
-      impl = SimpleWeather.DarkSkyxAdapter
       assert %{till_dark: 2} = Abstraction.today(impl)
+    end
+
+    @tag :only
+    test "returns correct data for morning", %{forecast: forecast, impl: impl} do
+      SimpleWeather.DarkskyxMock
+      |> expect(:forecast, fn _, _, _ -> {:ok, forecast, "headers"} end)
+
+      SimpleWeather.Utils.WeatherTimeMock
+      |> expect(:now, fn -> 1_577_840_400 end)
+      |> expect(:to_hours, fn _ -> 2 end)
+
+      assert %{morning: %{precipitation_probability: 0.5, temperature: 6, wind: 10}} = Abstraction.today(impl)
     end
   end
 end

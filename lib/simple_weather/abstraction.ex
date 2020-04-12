@@ -9,7 +9,8 @@ defmodule SimpleWeather.Abstraction do
   def today(implementation) do
     {:ok, today, _headers} = implementation.today()
     till_dark = get_till_dark_from_now(today)
-    %Today{morning: %Condition{}, evening: %Condition{}, till_dark: till_dark}
+    morning = get_morning_condition(today)
+    %Today{morning: morning, evening: %Condition{}, till_dark: till_dark}
   end
 
   @spec days_ago(days: non_neg_integer(), implementation: any()) :: %ShortCondition{}
@@ -29,5 +30,9 @@ defmodule SimpleWeather.Abstraction do
     weather_time().now()
     |> Kernel.-(sunset_time)
     |> weather_time().to_hours()
+  end
+
+  defp get_morning_condition(_today) do
+    %Condition{precipitation_probability: 1, wind: 1, temperature: 1}
   end
 end
