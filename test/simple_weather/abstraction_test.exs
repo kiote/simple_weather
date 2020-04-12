@@ -14,6 +14,10 @@ defmodule SimpleWeather.AbstractionTest do
     SimpleWeather.DarkskyxMock
     |> expect(:forecast, fn _, _, _ -> {:ok, forecast, "headers"} end)
 
+    SimpleWeather.Utils.WeatherTimeMock
+    |> expect(:now, fn -> 1_577_840_400 end)
+    |> expect(:to_hours, fn _ -> 2 end)
+
     impl = SimpleWeather.DarkSkyxAdapter
     assert Abstraction.today(impl) == "hi"
   end

@@ -18,6 +18,7 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
 config :simple_weather,
   implementation: SimpleWeather.DarkSkyxAdapter,
   darkskyx_adapter: SimpleWeather.DarkSkyxAdapter,
+  weather_time: SimpleWeather.Utils.WeatherTime,
   darkskyx_connector: Darkskyx,
   location: {59.4716181, 24.5981613}
 

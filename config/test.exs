@@ -8,6 +8,7 @@ config :simple_weather, SimpleWeatherWeb.Endpoint,
 
 config :simple_weather,
   darkskyx_adapter: SimpleWeather.DarkskyxAdapterMock,
+  weather_time: SimpleWeather.Utils.WeatherTimeMock,
   darkskyx_connector: SimpleWeather.DarkskyxMock
 
 # Print only warnings and errors during test
