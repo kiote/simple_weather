@@ -12,7 +12,7 @@ defmodule SimpleWeather.AbstractionTest do
     forecast = mocked_forecast()
 
     SimpleWeather.DarkskyxMock
-    |> expect(:forecast, fn _, _, _ -> {:ok, forecast, "something"} end)
+    |> expect(:forecast, fn _, _, _ -> {:ok, forecast, "headers"} end)
 
     impl = SimpleWeather.DarkSkyxAdapter
     assert Abstraction.today(impl) == "hi"
