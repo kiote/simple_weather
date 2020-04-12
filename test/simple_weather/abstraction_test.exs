@@ -2,6 +2,7 @@ defmodule SimpleWeather.AbstractionTest do
   use ExUnit.Case, async: true
 
   import Mox
+  import Support.MockedForecast
 
   alias SimpleWeather.Abstraction
 
