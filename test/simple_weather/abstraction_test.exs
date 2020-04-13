@@ -34,5 +34,17 @@ defmodule SimpleWeather.AbstractionTest do
       assert %{morning: %{precipitation_probability: 0.1, temperature: 65.76, wind: 4.23}} =
                Abstraction.today(impl)
     end
+
+    test "returns correct data for evening", %{forecast: forecast, impl: impl} do
+      SimpleWeather.DarkskyxMock
+      |> expect(:forecast, fn _, _, _ -> {:ok, forecast, "headers"} end)
+
+      SimpleWeather.Utils.WeatherTimeMock
+      |> expect(:now, fn -> 1_577_840_400 end)
+      |> expect(:to_hours, fn _ -> 2 end)
+
+      assert %{evening: %{precipitation_probability: 0.1, temperature: 65.76, wind: 4.23}} =
+               Abstraction.today(impl)
+    end
   end
 end
