@@ -32,7 +32,19 @@ defmodule SimpleWeather.Abstraction do
     |> weather_time().to_hours()
   end
 
-  defp get_morning_condition(_today) do
-    %Condition{precipitation_probability: 1, wind: 1, temperature: 1}
+  defp get_morning_condition(%{
+         hourly: %{
+           data: [
+             %{temperature: t1, precipProbability: p1, windSpeed: w1},
+             %{temperature: t2, precipProbability: p2, windSpeed: w2},
+             %{temperature: t3, precipProbability: p3, windSpeed: w3} | _
+           ]
+         }
+       }) do
+    %Condition{
+      precipitation_probability: Enum.max([p1, p2, p3]),
+      wind: Enum.max([w1, w2, w3]),
+      temperature: Enum.max([t1, t2, t3])
+    }
   end
 end
