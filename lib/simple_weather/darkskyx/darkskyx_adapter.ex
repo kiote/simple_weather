@@ -1,6 +1,8 @@
 defmodule SimpleWeather.DarkSkyxAdapter do
   @behaviour SimpleWeather.AdapterBehaviour
 
+  require Logger
+
   alias SimpleWeather.TimeMachine
   alias SimpleWeather.Location
   alias SimpleWeather.Darkskyx.ParamsForToday
@@ -11,6 +13,10 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   @forecast_defaults %Darkskyx{exclude: "minutely", units: "auto"}
   @time_machine_defaults %Darkskyx{exclude: "hourly", units: "auto"}
 
+  def formater do
+    SimpleWeather.Darkskyx.Formater
+  end
+
   @impl true
   def params_for_today() do
     {lat, long} = Location.lat_long_location()
@@ -20,7 +26,13 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   @impl true
   def today() do
     %{lat: lat, long: long, defaults: defaults} = params_for_today()
-    get_connector().forecast(lat, long, defaults)
+    case get_connector().forecast(lat, long, defaults) do
+      {:ok, today, _headers} ->
+        today
+      error ->
+        Logger.error("Unexpected response from weather service: #{inspect(error)}")
+        nil
+    end
   end
 
   @impl true

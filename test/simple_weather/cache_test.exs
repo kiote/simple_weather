@@ -4,7 +4,6 @@ defmodule SimpleWeather.CacheTest do
   import Mox
 
   alias SimpleWeather.WeatherReceiver
-
   alias SimpleWeather.Cache
 
   test "maybe_get_from/4" do
