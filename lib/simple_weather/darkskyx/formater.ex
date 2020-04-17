@@ -85,7 +85,7 @@ defmodule SimpleWeather.Darkskyx.Formater do
           ]
         }
       }) do
-  Logger.info(
+    Logger.info(
       evening: [
         %{temp: t1, prec: p1, wind: w1, time: tm1},
         %{temp: t2, prec: p2, wind: w2, time: tm2},
@@ -99,6 +99,5 @@ defmodule SimpleWeather.Darkskyx.Formater do
       wind: Enum.max([w1, w2, w3, w4]),
       temperature: Enum.max([t1, t2, t3, t4])
     }
-
   end
 end
