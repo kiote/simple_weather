@@ -6,7 +6,7 @@ defmodule Utils.StringsToAtoms do
   end
 
   def convert(string_key_list) when is_list(string_key_list) do
-	for val <- string_key_list, into: [], do: convert(val)
+    for val <- string_key_list, into: [], do: convert(val)
   end
 
   def convert(value), do: value

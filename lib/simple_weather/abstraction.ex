@@ -12,7 +12,7 @@ defmodule SimpleWeather.Abstraction do
          till_dark <- formater.get_till_dark_from_now(today),
          morning <- formater.get_morning_condition(today),
          evening <- formater.get_evening_condition(today) do
-Logger.info(inspect(today))
+      Logger.info(inspect(today))
       %Today{morning: morning, evening: evening, till_dark: till_dark}
     end
   end
