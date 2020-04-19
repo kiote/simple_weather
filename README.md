@@ -2,27 +2,14 @@
 
 [![codecov](https://codecov.io/gh/kiote/simple_weather/branch/master/graph/badge.svg)](https://codecov.io/gh/kiote/simple_weather)
 
-Goes to weather provider and gets weather data for today + historical data.
+Goes to weather provider and gets weather data for today.
 Suppose to provide data to IoT device with answers "is it safe to go bike riding today" question.
 
 # Result
 
 Open [`localhost:4000/api`](http:localhost:4000/api)
 
-# Interpretation of result
-
-There are 6 numbers in a row with possible values 0, 4, 8 for each.
-
-0 - very good conditions, temperature > +5 and no preciptions
-4 - moderate conditions, either too cold or probable rain
-8 - severe conditions, both too cold and preciptions
-
-1st number: now
-2nd: 2 hours from now
-3rd: 7 hours from now
-4th: yesterday
-5th: the day before yesterday
-6th: two days before
+# Running
 
 To start your Phoenix server:
 
