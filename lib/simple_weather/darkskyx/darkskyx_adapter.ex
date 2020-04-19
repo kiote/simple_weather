@@ -7,11 +7,14 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   alias SimpleWeather.Location
   alias SimpleWeather.Darkskyx.ParamsForToday
   alias SimpleWeather.Darkskyx.ParamsForTimeMachine
+  alias SimpleWeather.Utils.EtsCache, as: Cache
 
   defp get_connector, do: Application.get_env(:simple_weather, :darkskyx_connector)
 
   @forecast_defaults %Darkskyx{exclude: "minutely", units: "auto"}
   @time_machine_defaults %Darkskyx{exclude: "hourly", units: "auto"}
+  # hour cache
+  @caches_for 60_000 * 60
 
   def formater do
     SimpleWeather.Darkskyx.Formater
@@ -27,14 +30,28 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   def today() do
     %{lat: lat, long: long, defaults: defaults} = params_for_today()
 
-    case get_connector().forecast(lat, long, defaults) do
-      {:ok, today, _headers} ->
-        today
-        |> Utils.StringsToAtoms.convert()
+    key = params_for_today()
+          |> get_cache_key()
 
-      error ->
-        Logger.error("Unexpected response from weather service: #{inspect(error)}")
-        nil
+    key
+    |> maybe_get_from_cache()
+    |> case do
+      nil ->
+        case get_connector().forecast(lat, long, defaults) do
+          {:ok, today, _headers} ->
+            result = today
+                     |> Utils.StringsToAtoms.convert()
+
+            Cache.put({key, result, @caches_for})
+            result
+
+          error ->
+            Logger.error("Unexpected response from weather service: #{inspect(error)}")
+            nil
+        end
+
+      result ->
+        result
     end
   end
 
@@ -67,5 +84,9 @@ defmodule SimpleWeather.DarkSkyxAdapter do
   @impl true
   def get_cache_key(%ParamsForTimeMachine{lat: lat, long: long, timestamp: timestamp}) do
     "#{lat}#{long}#{timestamp}"
+  end
+
+  defp maybe_get_from_cache(key) do
+    Cache.get(key)
   end
 end
