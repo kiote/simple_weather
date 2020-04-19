@@ -2,10 +2,11 @@ defmodule SimpleWeatherWeb.PageController do
   use SimpleWeatherWeb, :controller
 
   def index(conn, _params) do
-    text(conn, SimpleWeather.Presenter.result())
+    impl = SimpleWeather.DarkSkyxAdapter
+    text(conn, inspect(SimpleWeather.Abstraction.today(impl)))
   end
 
   def human(conn, _params) do
-    text(conn, SimpleWeather.Presenter.human_readable_result())
+    text(conn, "not impelmented")
   end
 end

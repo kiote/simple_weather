@@ -30,6 +30,7 @@ defmodule SimpleWeather.DarkSkyxAdapter do
     case get_connector().forecast(lat, long, defaults) do
       {:ok, today, _headers} ->
         today
+        |> Utils.StringsToAtoms.convert()
 
       error ->
         Logger.error("Unexpected response from weather service: #{inspect(error)}")
