@@ -28,31 +28,10 @@ defmodule SimpleWeather.DarkSkyxAdapter do
 
   @impl true
   def today() do
-    %{lat: lat, long: long, defaults: defaults} = params_for_today()
-
-    key = params_for_today()
-          |> get_cache_key()
-
-    key
-    |> maybe_get_from_cache()
-    |> case do
-      nil ->
-        case get_connector().forecast(lat, long, defaults) do
-          {:ok, today, _headers} ->
-            result = today
-                     |> Utils.StringsToAtoms.convert()
-
-            Cache.put({key, result, @caches_for})
-            result
-
-          error ->
-            Logger.error("Unexpected response from weather service: #{inspect(error)}")
-            nil
-        end
-
-      result ->
-        result
-    end
+    params_for_today()
+    |> get_from_cache()
+    |> ensure_result()
+    |> convert_strings_to_atoms()
   end
 
   @impl true
@@ -86,7 +65,39 @@ defmodule SimpleWeather.DarkSkyxAdapter do
     "#{lat}#{long}#{timestamp}"
   end
 
-  defp maybe_get_from_cache(key) do
-    Cache.get(key)
+  defp get_from_cache(params) do
+    params
+    |> get_cache_key()
+    |> Cache.get()
+  end
+
+  defp ensure_result(nil) do
+    get_forecast()
+    |> put_to_cache()
+  end
+
+  defp ensure_result(result), do: result
+
+  defp get_forecast() do
+    %{lat: lat, long: long, defaults: defaults} = params_for_today()
+    get_connector().forecast(lat, long, defaults)
+  end
+
+  defp put_to_cache({:ok, today, _headers}) do
+    key = get_cache_key(params_for_today())
+
+    Cache.put({key, today, @caches_for})
+    today
+  end
+
+  defp put_to_cache(params) do
+    Logger.error("put_to_cache called with unexpected params: #{inspect(params)}")
+    nil
+  end
+
+  defp convert_strings_to_atoms(nil), do: nil
+
+  defp convert_strings_to_atoms(val) do
+    Utils.StringsToAtoms.convert(val)
   end
 end
