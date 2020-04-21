@@ -54,7 +54,6 @@ defmodule SimpleWeather.PresenterTest do
                  },
                  till_dark: till_dark
                })
-
     end
   end
 end
