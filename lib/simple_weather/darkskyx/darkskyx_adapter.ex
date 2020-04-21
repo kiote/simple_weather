@@ -65,6 +65,10 @@ defmodule SimpleWeather.DarkSkyxAdapter do
     "#{lat}#{long}#{timestamp}"
   end
 
+  #
+  # private
+  #
+
   defp get_from_cache(params) do
     params
     |> get_cache_key()
