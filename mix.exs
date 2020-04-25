@@ -39,10 +39,11 @@ defmodule SimpleWeather.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:mix_systemd, "~> 0.7"},
       {:darkskyx, "~> 1.0"},
       {:enum_type, "~> 1.0.1"},
       {:jason, "~> 1.0"},
+      {:mix_deploy, "~> 0.7"},
+      {:mix_systemd, "~> 0.7"},
       {:phoenix, "~> 1.4.14"},
       {:phoenix_pubsub, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
