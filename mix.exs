@@ -49,7 +49,7 @@ defmodule SimpleWeather.MixProject do
       {:timex, "~> 3.5"},
 
       # test, dev
-      {:dialyxir, "~> 0.4", only: [:dev]},
+      {:dialyxir, "~> 1.0", only: [:dev]},
       {:excoveralls, "~> 0.10", only: :test},
       {:mox, "~> 0.5.2", only: :test}
     ]
