@@ -14,7 +14,7 @@ defmodule SimpleWeather.MixProject do
       deps: deps(),
       releases: [
         prod: [
-          steps: [:assemble, :tar]
+          include_executables_for: [:unix]
         ]
       ]
     ]
