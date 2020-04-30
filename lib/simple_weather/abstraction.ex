@@ -5,14 +5,13 @@ defmodule SimpleWeather.Abstraction do
   alias SimpleWeather.Types.ShortCondition
   alias SimpleWeather.Types.Today
 
-  @spec today(any()) :: %Today{morning: %Condition{}, evening: %Condition{}, till_dark: integer()}
+  @spec today(any()) :: %Today{weather: %Condition{}, hours_till_dark: float()}
   def today(implementation) do
     with today <- implementation.today(),
          formater <- implementation.formater(),
          till_dark <- formater.get_till_dark_from_now(today),
-         morning <- formater.get_morning_condition(today),
-         evening <- formater.get_evening_condition(today) do
-      %Today{morning: morning, evening: evening, till_dark: till_dark}
+         weather <- formater.get_weather_condition(today) do
+      %Today{weather: weather, hours_till_dark: till_dark}
     end
   end
 

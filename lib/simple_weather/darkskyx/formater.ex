@@ -9,95 +9,31 @@ defmodule SimpleWeather.Darkskyx.Formater do
     Logger.error("Unexpected: empty daily data")
   end
 
-  def get_till_dark_from_now(%{daily: %{data: [%{sunsetTime: sunset_time} | _]}}) do
+  def get_till_dark_from_now(forecast) do
     weather_time().now()
-    |> Kernel.-(sunset_time)
+    |> Kernel.-(sunset_time(forecast))
     |> weather_time().to_hours()
+    |> Kernel.abs()
   end
 
-  def get_morning_condition(%{
-        hourly: %{
-          data: [
-            # 8-10am
-            # 0am
-            _,
-            # 1am
-            _,
-            # 2am
-            _,
-            _,
-            _,
-            # 6am
-            _,
-            # 7am
-            _,
-            %{temperature: t1, precipProbability: p1, windSpeed: w1, time: tm1},
-            %{temperature: t2, precipProbability: p2, windSpeed: w2, time: tm2},
-            %{temperature: t3, precipProbability: p3, windSpeed: w3, time: tm3} | _
-          ]
-        }
-      }) do
-    Logger.info(
-      morning: [
-        %{temp: t1, prec: p1, wind: w1, time: tm1},
-        %{temp: t2, prec: p2, wind: w2, time: tm2},
-        %{temp: t3, prec: p3, wind: w3, time: tm3}
-      ]
-    )
+  # %{temperature: t1, precipProbability: p1, windSpeed: w1, time: tm1},
+  # %{temperature: t2, precipProbability: p2, windSpeed: w2, time: tm2},
+  # %{temperature: t3, precipProbability: p3, windSpeed: w3, time: tm3} | _
+
+  def get_weather_condition(%{hourly: %{data: data}} = forecast) do
+    sunset_time = sunset_time(forecast)
+
+    before_dusk =
+      data
+      |> Enum.filter(fn %{time: t} -> t < sunset_time end)
 
     %Condition{
-      precipitation_probability: Enum.max([p1, p2, p3]),
-      wind: Enum.max([w1, w2, w3]),
-      temperature: Enum.max([t1, t2, t3])
+      precipitation_probability:
+        Enum.max(Enum.map(before_dusk, fn %{precipProbability: p} -> p end)),
+      wind: Enum.max(Enum.map(before_dusk, fn %{windSpeed: w} -> w end)),
+      temperature: Enum.max(Enum.map(before_dusk, fn %{temperature: t} -> t end))
     }
   end
 
-  def get_evening_condition(%{
-        hourly: %{
-          data: [
-            # 4-7pm
-            # 0am
-            _,
-            _,
-            _,
-            _,
-            # 4am
-            _,
-            _,
-            _,
-            _,
-            # 8am
-            _,
-            _,
-            _,
-            _,
-            # 12pm
-            _,
-            _,
-            _,
-            # 3pm
-            _,
-            %{temperature: t1, precipProbability: p1, windSpeed: w1, time: tm1},
-            %{temperature: t2, precipProbability: p2, windSpeed: w2, time: tm2},
-            %{temperature: t3, precipProbability: p3, windSpeed: w3, time: tm3},
-            %{temperature: t4, precipProbability: p4, windSpeed: w4, time: tm4}
-            | _
-          ]
-        }
-      }) do
-    Logger.info(
-      evening: [
-        %{temp: t1, prec: p1, wind: w1, time: tm1},
-        %{temp: t2, prec: p2, wind: w2, time: tm2},
-        %{temp: t3, prec: p3, wind: w3, time: tm3},
-        %{temp: t4, prec: p4, wind: w4, time: tm4}
-      ]
-    )
-
-    %Condition{
-      precipitation_probability: Enum.max([p1, p2, p3, p4]),
-      wind: Enum.max([w1, w2, w3, w4]),
-      temperature: Enum.max([t1, t2, t3, t4])
-    }
-  end
+  defp sunset_time(%{daily: %{data: [%{sunsetTime: sunset_time} | _]}}), do: sunset_time
 end

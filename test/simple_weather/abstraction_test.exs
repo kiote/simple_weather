@@ -31,7 +31,7 @@ defmodule SimpleWeather.AbstractionTest do
       |> expect(:now, fn -> 1_577_840_400 end)
       |> expect(:to_hours, fn _ -> 2 end)
 
-      assert %{morning: %{precipitation_probability: 0.1, temperature: 5.76, wind: 4.23}} =
+      assert %{from_now: %{precipitation_probability: 0.1, temperature: 5.76, wind: 4.23}} =
                Abstraction.today(impl)
     end
 

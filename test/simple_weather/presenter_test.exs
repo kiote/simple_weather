@@ -17,12 +17,12 @@ defmodule SimpleWeather.PresenterTest do
 
       assert "YES" ==
                Presenter.to_machine(%Today{
-                 morning: %Condition{
+                 from_now: %Condition{
                    temperature: temperature_morning,
                    wind: wind_morning,
                    precipitation_probability: precipitation_probability_morning
                  },
-                 evening: %Condition{
+                 in_evening: %Condition{
                    temperature: temperature_evening,
                    wind: wind_evening,
                    precipitation_probability: precipitation_probability_evening
@@ -42,12 +42,12 @@ defmodule SimpleWeather.PresenterTest do
 
       assert "NO" ==
                Presenter.to_machine(%Today{
-                 morning: %Condition{
+                 from_now: %Condition{
                    temperature: temperature_morning,
                    wind: wind_morning,
                    precipitation_probability: precipitation_probability_morning
                  },
-                 evening: %Condition{
+                 in_evening: %Condition{
                    temperature: temperature_evening,
                    wind: wind_evening,
                    precipitation_probability: precipitation_probability_evening
