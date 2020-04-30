@@ -26,11 +26,11 @@ defmodule SimpleWeather.Darkskyx.Formater do
         before_dusk
         |> get_list_of(:precipProbability)
         |> Enum.max(),
-      wind: 
+      wind:
         before_dusk
         |> get_list_of(:windSpeed)
         |> Enum.max(),
-      temperature: 
+      temperature:
         before_dusk
         |> get_list_of(:temperature)
         |> Enum.min()
