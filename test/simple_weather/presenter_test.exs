@@ -7,7 +7,7 @@ defmodule SimpleWeather.PresenterTest do
 
   describe "to_machine/1" do
     test "when weather is good" do
-      till_dark = -8
+      till_dark = 8
       temperature_morning = 8
       temperature_evening = 8
       wind_morning = 0
@@ -17,17 +17,12 @@ defmodule SimpleWeather.PresenterTest do
 
       assert "YES" ==
                Presenter.to_machine(%Today{
-                 from_now: %Condition{
+                 weather: %Condition{
                    temperature: temperature_morning,
                    wind: wind_morning,
                    precipitation_probability: precipitation_probability_morning
                  },
-                 in_evening: %Condition{
-                   temperature: temperature_evening,
-                   wind: wind_evening,
-                   precipitation_probability: precipitation_probability_evening
-                 },
-                 till_dark: till_dark
+                 hours_till_dark: till_dark
                })
     end
 
@@ -42,17 +37,12 @@ defmodule SimpleWeather.PresenterTest do
 
       assert "NO" ==
                Presenter.to_machine(%Today{
-                 from_now: %Condition{
+                 weather: %Condition{
                    temperature: temperature_morning,
                    wind: wind_morning,
                    precipitation_probability: precipitation_probability_morning
                  },
-                 in_evening: %Condition{
-                   temperature: temperature_evening,
-                   wind: wind_evening,
-                   precipitation_probability: precipitation_probability_evening
-                 },
-                 till_dark: till_dark
+                 hours_till_dark: till_dark
                })
     end
   end
