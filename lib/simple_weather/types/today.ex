@@ -1,3 +1,3 @@
 defmodule SimpleWeather.Types.Today do
-  defstruct [:morning, :evening, :till_dark]
+  defstruct [:weather, :hours_till_dark]
 end

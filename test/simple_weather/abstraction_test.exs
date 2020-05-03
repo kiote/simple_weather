@@ -5,9 +5,11 @@ defmodule SimpleWeather.AbstractionTest do
   import Support.MockedForecast
 
   alias SimpleWeather.Abstraction
+  alias SimpleWeather.Utils.EtsCache
 
   setup do
     :verify_on_exit!
+    EtsCache.clear()
     %{forecast: mocked_forecast(), impl: SimpleWeather.DarkSkyxAdapter}
   end
 
@@ -20,7 +22,7 @@ defmodule SimpleWeather.AbstractionTest do
       |> expect(:now, fn -> 1_577_840_400 end)
       |> expect(:to_hours, fn _ -> 2 end)
 
-      assert %{till_dark: 2} = Abstraction.today(impl)
+      assert %{hours_till_dark: -2} = Abstraction.today(impl)
     end
 
     test "returns correct data for morning", %{forecast: forecast, impl: impl} do
@@ -31,7 +33,7 @@ defmodule SimpleWeather.AbstractionTest do
       |> expect(:now, fn -> 1_577_840_400 end)
       |> expect(:to_hours, fn _ -> 2 end)
 
-      assert %{morning: %{precipitation_probability: 0.1, temperature: 5.76, wind: 4.23}} =
+      assert %{weather: %{precipitation_probability: 0.1, temperature: 5.76, wind: 4.23}} =
                Abstraction.today(impl)
     end
 
@@ -43,7 +45,7 @@ defmodule SimpleWeather.AbstractionTest do
       |> expect(:now, fn -> 1_577_840_400 end)
       |> expect(:to_hours, fn _ -> 2 end)
 
-      assert %{evening: %{precipitation_probability: 0.1, temperature: 5.76, wind: 4.23}} =
+      assert %{weather: %{precipitation_probability: 0.1, temperature: 5.76, wind: 4.23}} =
                Abstraction.today(impl)
     end
   end
