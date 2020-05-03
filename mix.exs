@@ -4,7 +4,7 @@ defmodule SimpleWeather.MixProject do
   def project do
     [
       app: :simple_weather,
-      version: "0.1.0",
+      version: "0.1.2",
       elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
@@ -14,7 +14,7 @@ defmodule SimpleWeather.MixProject do
       deps: deps(),
       releases: [
         prod: [
-          steps: [:assemble, :tar]
+          include_executables_for: [:unix]
         ]
       ]
     ]
@@ -39,10 +39,11 @@ defmodule SimpleWeather.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:mix_systemd, "~> 0.7"},
       {:darkskyx, "~> 1.0"},
       {:enum_type, "~> 1.0.1"},
       {:jason, "~> 1.0"},
+      {:mix_deploy, "~> 0.7"},
+      {:mix_systemd, "~> 0.7"},
       {:phoenix, "~> 1.4.14"},
       {:phoenix_pubsub, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
