@@ -7,7 +7,11 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
   alias SimpleWeather.Darkskyx.ParamsForTimeMachine
   alias SimpleWeather.Darkskyx.ParamsForToday
 
-  setup :verify_on_exit!
+  setup do 
+    :verify_on_exit!
+    SimpleWeather.Utils.EtsCache.clear()
+    :ok
+  end
 
   test "params_for_today" do
     assert %SimpleWeather.Darkskyx.ParamsForToday{} = DarkSkyxAdapter.params_for_today()
@@ -22,7 +26,7 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
     SimpleWeather.DarkskyxMock
     |> expect(:forecast, fn _, _, _ -> {:ok, "something", "nothing"} end)
 
-    assert %{} = DarkSkyxAdapter.today()
+    assert "something" = DarkSkyxAdapter.today()
   end
 
   test "time_machine" do

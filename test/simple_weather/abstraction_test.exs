@@ -5,9 +5,11 @@ defmodule SimpleWeather.AbstractionTest do
   import Support.MockedForecast
 
   alias SimpleWeather.Abstraction
+  alias SimpleWeather.Utils.EtsCache
 
   setup do
     :verify_on_exit!
+    EtsCache.clear()
     %{forecast: mocked_forecast(), impl: SimpleWeather.DarkSkyxAdapter}
   end
 
