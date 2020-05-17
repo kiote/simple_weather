@@ -4,7 +4,8 @@ defmodule SimpleWeather.Presenter do
   alias SimpleWeather.Types.Condition
   alias SimpleWeather.Types.Today
 
-  @precipitation_probability_threshold 0.7
+  @precipitation_probability_threshold 0.5
+  @precipitation_intensity_threshold 0.5
   @temperature_threshold 5
   @till_dark_threshold 2
   @wind_threshold 10
@@ -13,13 +14,15 @@ defmodule SimpleWeather.Presenter do
         weather: %Condition{
           temperature: temperature,
           wind: wind,
-          precipitation_probability: precipitation_probability
+          precipitation_probability: precipitation_probability,
+          precipitation_intensity: precipitation_intensity
         },
         hours_till_dark: till_dark
       })
       when temperature < @temperature_threshold or
              wind > @wind_threshold or
              precipitation_probability > @precipitation_probability_threshold or
+             precipitation_intensity >= @precipitation_intensity_threshold or
              till_dark < @till_dark_threshold,
       do: "NO"
 
@@ -27,13 +30,15 @@ defmodule SimpleWeather.Presenter do
         weather: %Condition{
           temperature: temperature,
           wind: wind,
-          precipitation_probability: precipitation_probability
+          precipitation_probability: precipitation_probability,
+          precipitation_intensity: precipitation_intensity
         },
         hours_till_dark: till_dark
       })
       when temperature >= @temperature_threshold and
              wind <= @wind_threshold and
              precipitation_probability <= @precipitation_probability_threshold and
+             precipitation_intensity < @precipitation_intensity_threshold and
              till_dark >= @till_dark_threshold,
       do: "YES"
 

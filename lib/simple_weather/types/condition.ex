@@ -1,3 +1,3 @@
 defmodule SimpleWeather.Types.Condition do
-  defstruct [:temperature, :precipitation_probability, :wind]
+  defstruct [:temperature, :precipitation_probability, :wind, :precipitation_intensity]
 end

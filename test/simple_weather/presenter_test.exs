@@ -11,13 +11,15 @@ defmodule SimpleWeather.PresenterTest do
       temperature = 8
       wind = 0
       precipitation_probability = 0.0
+	  precipitation_intensity = 0.1
 
       assert "YES" ==
                Presenter.to_machine(%Today{
                  weather: %Condition{
                    temperature: temperature,
                    wind: wind,
-                   precipitation_probability: precipitation_probability
+                   precipitation_probability: precipitation_probability,
+				   precipitation_intensity: precipitation_intensity
                  },
                  hours_till_dark: till_dark
                })
@@ -28,13 +30,15 @@ defmodule SimpleWeather.PresenterTest do
       temperature = 1
       wind = 10
       precipitation_probability = 0.9
+	  precipitation_intensity = 2.0
 
       assert "NO" ==
                Presenter.to_machine(%Today{
                  weather: %Condition{
                    temperature: temperature,
                    wind: wind,
-                   precipitation_probability: precipitation_probability
+                   precipitation_probability: precipitation_probability,
+				   precipitation_intensity: precipitation_intensity
                  },
                  hours_till_dark: till_dark
                })

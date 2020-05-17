@@ -20,21 +20,27 @@ defmodule SimpleWeather.Darkskyx.Formater do
     sunset_time = sunset_time(forecast)
 
     before_dusk = filter_dark_hours(data, sunset_time)
-
     %Condition{
-      precipitation_probability:
-        before_dusk
-        |> get_list_of(:precipProbability)
-        |> Enum.max(),
-      wind:
-        before_dusk
-        |> get_list_of(:windSpeed)
-        |> Enum.max(),
-      temperature:
-        before_dusk
-        |> get_list_of(:temperature)
-        |> Enum.min()
+      precipitation_intensity: max_before_dusk(:precipIntensity, before_dusk),
+      precipitation_probability: max_before_dusk(:precipProbability, before_dusk),
+      wind: max_before_dusk(:windSpeed, before_dusk),
+      temperature: min_before_dusk(:temperature, before_dusk)
     }
+  end
+
+  defp max_before_dusk(val, before_dusk) do
+    get_list_before_dusk(val, before_dusk)
+    |> Enum.max()
+  end
+
+  defp min_before_dusk(val, before_dusk) do
+    get_list_before_dusk(val, before_dusk)
+    |> Enum.min()
+  end
+
+  defp get_list_before_dusk(val, before_dusk) do
+    before_dusk
+    |> get_list_of(val)
   end
 
   defp sunset_time(%{daily: %{data: [%{sunsetTime: sunset_time} | _]}}), do: sunset_time
