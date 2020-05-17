@@ -7,7 +7,7 @@ defmodule SimpleWeather.DarkSkyxAdapterTest do
   alias SimpleWeather.Darkskyx.ParamsForTimeMachine
   alias SimpleWeather.Darkskyx.ParamsForToday
 
-  setup do 
+  setup do
     :verify_on_exit!
     SimpleWeather.Utils.EtsCache.clear()
     :ok

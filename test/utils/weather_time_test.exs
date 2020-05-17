@@ -4,7 +4,7 @@ defmodule SimpleWeather.Utils.WeatherTimeTest do
   alias SimpleWeather.Utils.WeatherTime
 
   test "now" do
-    assert WeatherTime.now() == Timex.now |> Timex.to_unix()
+    assert WeatherTime.now() == Timex.now() |> Timex.to_unix()
   end
 
   test "to_hours/1" do

@@ -20,6 +20,7 @@ defmodule SimpleWeather.Darkskyx.Formater do
     sunset_time = sunset_time(forecast)
 
     before_dusk = filter_dark_hours(data, sunset_time)
+
     %Condition{
       precipitation_intensity: max_before_dusk(:precipIntensity, before_dusk),
       precipitation_probability: max_before_dusk(:precipProbability, before_dusk),
