@@ -31,4 +31,6 @@ API KEY needs to be exported before building a release
 ```
 MIX_ENV=prod mix release prod
 _build/prod/rel/prod/bin/prod start
+# or
+(exec  _build/prod/rel/prod/bin/prod start &> /tmp/logs &)
 ```
