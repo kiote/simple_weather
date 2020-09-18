@@ -40,7 +40,7 @@ defmodule SimpleWeather.MixProject do
   defp deps do
     [
       {:darkskyx, "~> 1.0"},
-      {:enum_type, "~> 1.0.1"},
+      {:enum_type, "~> 1.1.2"},
       {:jason, "~> 1.0"},
       {:mix_deploy, "~> 0.7"},
       {:mix_systemd, "~> 0.7"},
