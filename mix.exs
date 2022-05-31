@@ -52,7 +52,7 @@ defmodule SimpleWeather.MixProject do
       # test, dev
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
-      {:mox, "~> 0.5.2", only: :test}
+      {:mox, "~> 1.0.2", only: :test}
     ]
   end
 end
